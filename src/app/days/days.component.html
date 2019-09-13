@@ -1,2 +1,2 @@
-<p>{{selecteddate | date:'yyyy-MM-dd' }}</p>
-<rb-day></rb-day>
+<p><i class="material-icons" (click)="back()">reply</i>{{selecteddate | date:'yyyy-MM-dd' }}<i class="material-icons" (click)="forward()">forward</i></p>
+<rb-day [selecteddate]="selecteddate"></rb-day>

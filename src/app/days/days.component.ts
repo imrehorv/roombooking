@@ -7,12 +7,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DaysComponent implements OnInit {
 
-  selecteddate:Date
+  selecteddate: Date
 
   constructor() { }
 
   ngOnInit() {
-    this.selecteddate=new Date();
+    this.selecteddate = new Date();
+  }
+
+  back() {
+    this.increasedate(-1);
+  }
+
+  forward() {
+    this.increasedate(1);
+  }
+
+  increasedate(amount:number)
+  {
+    let tmp=new Date();
+    tmp.setDate(this.selecteddate.getDate() + amount);
+    this.selecteddate=tmp;
   }
 
 
