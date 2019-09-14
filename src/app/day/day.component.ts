@@ -24,12 +24,23 @@ export class DayComponent implements OnChanges, OnInit {
   constructor(private userService: UserService, private bookingService: BookingService, private roomService: RoomService) { }
 
   ngOnInit() {
+    this.roomService.list().subscribe(
+      (data)=>{
+        this.rooms=data;
+        console.log(`rooms from backend:${JSON.stringify(this.rooms)}`);
+        this.initModel();
+      }
+    );
+
     console.log(`ngoninit called selecteddate:${this.selecteddate}`)
   }
 
   ngOnChanges(changes: SimpleChanges) {
     console.log('got selecteddate: ', changes.selecteddate.currentValue);
-    this.initModel(changes.selecteddate.currentValue);
+    if (this.rooms)
+    {
+      this.initModel();
+    }
   }
 
   onCellClicked(rowindex: number, columnindex: number) {
@@ -43,11 +54,10 @@ export class DayComponent implements OnChanges, OnInit {
       user = null;
     }
     row.bookedbyuser[columnindex] = user;
-    this.bookingService.save({ startDate: row.startdate, endDate: row.startdate, userid: user == null ? null : user.id, username: user == null ? null : user.name, roomid: this.rooms[columnindex].id });
+    this.bookingService.save({ startDate: row.startdate, endDate: row.startdate, userid: user == null ? null : user.id, username: user == null ? null : user.name, roomid: this.rooms[columnindex].id }).subscribe();
   }
 
-  initModel(currentValue: Date) {
-    this.rooms = this.roomService.list();
+  initModel() {
     this.initBookingModel();
     this.updateBookingModelFromBackend();
   }
@@ -59,7 +69,7 @@ export class DayComponent implements OnChanges, OnInit {
     this.bookings = { version, rows };
 
     date.setHours(7);
-    console.log(`date:${date}`);
+    console.log(`initBookingModel date:${date}`);
     for (let i = 0; i < 10; i++) {
       let startdate: Date = date;
       let enddate: Date = this.getDatePlus30Min(date);
@@ -75,24 +85,30 @@ export class DayComponent implements OnChanges, OnInit {
   }
 
   updateBookingModelFromBackend() {
-    let records: BookingRecord[] = this.bookingService.load(this.getDate(this.selecteddate));
-    console.log(`records after load:${JSON.stringify(records)}`);
-    records.forEach(
-      (record) => {
-        this.bookings.rows.forEach(
-          (row) => {
-            //console.log(`${record.startDate}  *** ${row.startdate} ==? ${record.startDate.getMinutes()===row.startdate.getMinutes()}`);
-            if (record.startDate.getHours() === row.startdate.getHours() && record.startDate.getMinutes() === row.startdate.getMinutes()) {
-              for (let i = 0; i < this.rooms.length; i++) {
-                if (this.rooms[i].id === record.roomid) {
-                  row.bookedbyuser[i] = { id: record.userid, name: record.username };
+    
+    this.bookingService.load(this.getDate(this.selecteddate)).subscribe(
+      (data)=> {
+        let records: BookingRecord[] = data;
+        console.log(`records after load:${JSON.stringify(records)}`);
+        records.forEach(
+          (record) => {
+            this.bookings.rows.forEach(
+              (row) => {
+                //console.log(`${record.startDate}  *** ${row.startdate} ==? ${record.startDate.getMinutes()===row.startdate.getMinutes()}`);
+                if (record.startDate.getHours() === row.startdate.getHours() && record.startDate.getMinutes() === row.startdate.getMinutes()) {
+                  for (let i = 0; i < this.rooms.length; i++) {
+                    if (this.rooms[i].id === record.roomid) {
+                      row.bookedbyuser[i] = { id: record.userid, name: record.username };
+                    }
+                  }
                 }
               }
-            }
+            )
           }
-        )
+        );
       }
     );
+    
     //console.log(`updated model:${JSON.stringify(this.bookings)}`);
   }
 

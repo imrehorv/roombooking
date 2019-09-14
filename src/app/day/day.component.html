@@ -1,5 +1,5 @@
 <i class="material-icons orange600">face</i>{{userService.getUser().name}}
-<table>
+<table *ngIf="rooms!=null">
     <tr>
         <th></th>
         <th *ngFor="let room of rooms">{{room.name}}</th>

@@ -23,11 +23,8 @@ export class DaysComponent implements OnInit {
     this.increasedate(1);
   }
 
-  increasedate(amount:number)
-  {
-    let tmp=new Date();
-    tmp.setDate(this.selecteddate.getDate() + amount);
-    this.selecteddate=tmp;
+  increasedate(days: number) {
+    this.selecteddate = new Date(this.selecteddate.getTime() + (days * 24 * 60 * 60 * 1000));
   }
 
 

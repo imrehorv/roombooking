@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  inmemory: true,
+  baseUrl: 'http://localhost:8080/roombookingsrv'
 };
