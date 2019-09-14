@@ -42,11 +42,17 @@ export class DayComponent implements OnChanges, OnInit {
       user=null;
     }
     row.bookedbyuser[columnindex]=user;
-    this.bookingService.save({startDate:row.startdate,endDate:row.startdate,userid:user==null?null:user.id,roomid:this.rooms[columnindex].id});
+    this.bookingService.save({startDate:row.startdate,endDate:row.startdate,userid:user==null?null:user.id,username:user==null?null:user.name,roomid:this.rooms[columnindex].id});
   }
 
   initModel(currentValue: Date) {
     this.rooms = [{id:'room1',name:'Room1'},{id:'room2',name:'Room2'},{id:'room3',name:'Room3'}];
+    this.initBookingModel();
+    this.updateBookingModelFromBackend();
+  }
+
+  initBookingModel()
+  {
     let date = this.getDate(this.selecteddate);
     let version=0;
     let rows:Row[]=[];
@@ -60,10 +66,36 @@ export class DayComponent implements OnChanges, OnInit {
       let bookedbyuser:User[] = [null, null, null];
       let row: Row = { startdate, enddate, bookedbyuser };
       date = this.getDatePlus30Min(date);
-      console.log(`date:${date} row:${JSON.stringify(row)}`);
+      //console.log(`date:${date} row:${JSON.stringify(row)}`);
       rows.push(row);
     }
   }
+
+  updateBookingModelFromBackend() {
+    let records: BookingRecord[]=this.bookingService.load(this.getDate(this.selecteddate));
+    console.log(`records after load:${JSON.stringify(records)}`);
+    records.forEach(
+      (record)=>{
+        this.bookings.rows.forEach(
+          (row)=> {
+            //console.log(`${record.startDate}  *** ${row.startdate} ==? ${record.startDate.getMinutes()===row.startdate.getMinutes()}`);
+            if (record.startDate.getHours() ===row.startdate.getHours() && record.startDate.getMinutes() ===row.startdate.getMinutes()) {
+              for (let i=0;i<this.rooms.length;i++)
+              {
+                if (this.rooms[i].id===record.roomid)
+                {
+                  row.bookedbyuser[i]={id:record.userid,name:record.username};
+                }
+              }
+            }
+          }
+        )
+      }
+    );
+    //console.log(`updated model:${JSON.stringify(this.bookings)}`);
+  }
+
+
   getDatePlus30Min(date: Date): Date {
     let hours = date.getHours();
     let minutes = date.getMinutes();
