@@ -1,5 +1,5 @@
 export interface Row {
-    startdate : Date,
+    startdate: Date,
     enddate: Date,
     rooms: string[]
 }

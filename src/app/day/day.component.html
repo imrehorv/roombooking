@@ -1,6 +1,13 @@
 <p>day works!<i class="material-icons orange600">face</i></p>
 {{selecteddate}}
-<ul>
-    <li *ngFor="let row of rows">{{row.startdate | date:'hh:mm'}}-{{row.enddate | date:'hh:mm'}}</li>
-</ul>
+<table>
+    <tr>
+        <th></th>
+        <th *ngFor="let room of rooms">{{room}}</th>
+    </tr>
+    <tr *ngFor="let row of bookings.rows">
+        <td>{{row.startdate | date:'hh:mm'}}-{{row.enddate | date:'hh:mm'}}</td>
+        <td *ngFor="let room of rooms" align="center">X</td>
+    </tr>
+</table>
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges, SimpleChange, OnChanges } from '@angular/core';
 import { Row } from '../irow';
+import { Bookings } from '../ibookings';
 
 @Component({
   selector: 'rb-day',
@@ -11,7 +12,7 @@ export class DayComponent implements OnChanges, OnInit {
   @Input()
   selecteddate: Date;
   rooms: String[];
-  rows: Row[];
+  bookings: Bookings;
 
   constructor() { }
 
@@ -26,26 +27,27 @@ export class DayComponent implements OnChanges, OnInit {
 
   initModel(currentValue: Date) {
     this.rooms = ['Room1', 'Room2', 'Room3'];
-    let date=this.getDate(this.selecteddate);
-    this.rows=[];
-    
+    let date = this.getDate(this.selecteddate);
+    let version=0;
+    let rows:Row[]=[];
+    this.bookings = {version,rows};
+
     date.setHours(7);
     console.log(`date:${date}`);
-    for (let i=0;i<10;i++)
-    {
-      let startdate:Date=date;
-      let enddate:Date=this.getDatePlus30Min(date);
-      let rooms=['','',''];
-      let row:Row={startdate,enddate,rooms};
-      date=this.getDatePlus30Min(date);
+    for (let i = 0; i < 10; i++) {
+      let startdate: Date = date;
+      let enddate: Date = this.getDatePlus30Min(date);
+      let rooms = ['', '', ''];
+      let row: Row = { startdate, enddate, rooms };
+      date = this.getDatePlus30Min(date);
       console.log(`date:${date} row:${JSON.stringify(row)}`);
-      this.rows.push(row);
+      rows.push(row);
     }
   }
   getDatePlus30Min(date: Date): Date {
-    let hours=date.getHours();
-    let minutes=date.getMinutes();
-    let result=this.getDate(date);
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let result = this.getDate(date);
     result.setHours(hours);
     result.setMinutes(minutes);
     result.setTime(result.getTime() + (30 * 60 * 1000));
@@ -53,7 +55,7 @@ export class DayComponent implements OnChanges, OnInit {
   }
 
   getDate(date: Date): Date {
-    let result=new Date();
+    let result = new Date();
     result.setDate(date.getDate());
     result.setHours(0);
     result.setMinutes(0);
