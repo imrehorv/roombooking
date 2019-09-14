@@ -3,11 +3,15 @@
 <table>
     <tr>
         <th></th>
-        <th *ngFor="let room of rooms">{{room}}</th>
+        <th *ngFor="let room of rooms">{{room.name}}</th>
     </tr>
-    <tr *ngFor="let row of bookings.rows">
+    <tr *ngFor="let row of bookings.rows;let rowindex=index">
         <td>{{row.startdate | date:'hh:mm'}}-{{row.enddate | date:'hh:mm'}}</td>
-        <td *ngFor="let room of rooms" align="center">X</td>
+        <td *ngFor="let room of rooms;let columnindex=index" 
+            align="center" (click)="onCellClicked(rowindex,columnindex)" 
+            [ngStyle]="{'background-color':bookings.rows[rowindex].bookedbyuser[columnindex] ? 'red' : 'green'}">
+            {{(bookings.rows[rowindex].bookedbyuser[columnindex])?.name}}
+        </td>
     </tr>
 </table>
 

@@ -1,6 +1,11 @@
 import { Component, OnInit, Input, SimpleChanges, SimpleChange, OnChanges } from '@angular/core';
 import { Row } from '../irow';
 import { Bookings } from '../ibookings';
+import { UserService } from '../user.service';
+import { BookingRecord } from '../ibookingrecord';
+import { BookingService } from '../booking.service';
+import { Room } from '../iroom';
+import { User } from '../iuser';
 
 @Component({
   selector: 'rb-day',
@@ -11,10 +16,11 @@ export class DayComponent implements OnChanges, OnInit {
 
   @Input()
   selecteddate: Date;
-  rooms: String[];
+  rooms: Room[];
   bookings: Bookings;
 
-  constructor() { }
+
+  constructor(private userService:UserService,private bookingService:BookingService) { }
 
   ngOnInit() {
     console.log(`ngoninit called selecteddate:${this.selecteddate}`)
@@ -25,8 +31,22 @@ export class DayComponent implements OnChanges, OnInit {
     this.initModel(changes.selecteddate.currentValue);
   }
 
+  onCellClicked(rowindex:number,columnindex:number) {
+    console.log(`rowclicked ${rowindex} ${columnindex}`);
+    let row:Row=this.bookings.rows[rowindex];
+    let user:User=row.bookedbyuser[columnindex];
+    if (!row.bookedbyuser[columnindex]) { //booking
+      user=this.userService.getUser();
+    }
+    else if (user.id===this.userService.getUser().id) { //own booking can be cancelled
+      user=null;
+    }
+    row.bookedbyuser[columnindex]=user;
+    this.bookingService.save({startDate:row.startdate,endDate:row.startdate,userid:user==null?null:user.id,roomid:this.rooms[columnindex].id});
+  }
+
   initModel(currentValue: Date) {
-    this.rooms = ['Room1', 'Room2', 'Room3'];
+    this.rooms = [{id:'room1',name:'Room1'},{id:'room2',name:'Room2'},{id:'room3',name:'Room3'}];
     let date = this.getDate(this.selecteddate);
     let version=0;
     let rows:Row[]=[];
@@ -37,8 +57,8 @@ export class DayComponent implements OnChanges, OnInit {
     for (let i = 0; i < 10; i++) {
       let startdate: Date = date;
       let enddate: Date = this.getDatePlus30Min(date);
-      let rooms = ['', '', ''];
-      let row: Row = { startdate, enddate, rooms };
+      let bookedbyuser:User[] = [null, null, null];
+      let row: Row = { startdate, enddate, bookedbyuser };
       date = this.getDatePlus30Min(date);
       console.log(`date:${date} row:${JSON.stringify(row)}`);
       rows.push(row);
