@@ -40,13 +40,13 @@ export class BookingService {
       console.log(`not found, inserting`);
       this.records.push(input);
     }
-    console.log(`records after save:${JSON.stringify(this.records)}`);
+    //console.log(`records after save:${JSON.stringify(this.records)}`);
   }
 
   load(date: Date): BookingRecord[] {
     return this.records.filter(
       (record) => {
-        console.log(`${record.startDate.getUTCDay()} >>> ${date.getUTCDay()}`);
+        //console.log(`${record.startDate.getUTCDay()} >>> ${date.getUTCDay()}`);
         return (record.startDate.getFullYear() === date.getFullYear() 
                 && record.startDate.getMonth() === date.getMonth()
                 && record.startDate.getDate() === date.getDate());

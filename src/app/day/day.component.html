@@ -8,7 +8,7 @@
         <td>{{row.startdate | date:'hh:mm'}}-{{row.enddate | date:'hh:mm'}}</td>
         <td *ngFor="let room of rooms;let columnindex=index" 
             align="center" (click)="onCellClicked(rowindex,columnindex)" 
-            [ngStyle]="{'background-color':bookings.rows[rowindex].bookedbyuser[columnindex] ? 'red' : 'green'}">
+            [ngStyle]="{'background-color':isCellEmpty(rowindex,columnindex) ? 'green' : 'red'}">
             {{(bookings.rows[rowindex].bookedbyuser[columnindex])?.name}}
         </td>
     </tr>
