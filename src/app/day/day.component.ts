@@ -54,7 +54,7 @@ export class DayComponent implements OnChanges, OnInit {
       user = null;
     }
     row.bookedbyuser[columnindex] = user;
-    this.bookingService.save({ startDate: row.startdate, endDate: row.startdate, userid: user == null ? null : user.id, username: user == null ? null : user.name, roomid: this.rooms[columnindex].id }).subscribe();
+    this.bookingService.save({ startDate: row.startdate, endDate: row.enddate, userid: user == null ? null : user.id, username: user == null ? null : user.name, roomid: this.rooms[columnindex].id }).subscribe();
   }
 
   initModel() {
