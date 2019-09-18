@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BookingRecord } from './ibookingrecord';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment.prod';
 import {HttpClient} from '@angular/common/http';
 import * as moment from 'moment';
@@ -34,14 +35,35 @@ export class BookingService {
     return clone;
   }
 
+  backendToRecord(input: BookingRecord) {
+    const clone:any={...input};
+    const dateformat='YYYY-MM-DD HH:mm';
+    clone['startDate']=moment(input.startDate, dateformat).toDate();
+    clone['endDate']=moment(input.endDate, dateformat).toDate();
+    
+    return clone;
+  }
+
   load(date: Date): Observable<BookingRecord[]> {
     if (environment.inmemory)
     {
       return this.inmemoryload(date);
     }
     else {
-      return this.inmemoryload(date);
+      return this.http.get<BookingRecord[]>(`${environment.baseUrl}/api/booking/${this.formatDate(date)}`).pipe(
+          map(
+            (data)=> {
+              return data.map(
+                (rec)=>this.backendToRecord(rec)
+              )
+            }
+          )
+      )
+      ;
     }
+  }
+  formatDate(date: Date) {
+    return moment(date).format('YYYY-MM-DD');
   }
 
   inmemorysave(input: BookingRecord): Observable<void> {
