@@ -18,4 +18,16 @@ export class UserService {
   list():Observable<User[]> {
      return this.http.get<User[]>(`${environment.baseUrl}/api/user`);
   }  
+
+  loadUser(id:string): Observable<User> {
+    return this.http.get<User>(`${environment.baseUrl}/api/user/${id}`);
+  }
+
+  save(user:User): Observable<User>  {
+    return this.http.post<User>(`${environment.baseUrl}/api/user/`,user);
+  }
+
+  delete(user:User): Observable<void>  {
+    return this.http.delete<void>(`${environment.baseUrl}/api/user/${user.id}`);
+  }
 }

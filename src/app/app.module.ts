@@ -11,6 +11,7 @@ import { DayComponent } from './day/day.component';
 import { UsersComponent } from './users/users.component';
 import { MenuComponent } from './menu/menu.component';
 import { RoomsComponent } from './rooms/rooms.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RoomsComponent } from './rooms/rooms.component';
     DayComponent,
     UsersComponent,
     MenuComponent,
-    RoomsComponent
+    RoomsComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
