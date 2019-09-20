@@ -8,12 +8,18 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DaysComponent } from './days/days.component';
 import { DayComponent } from './day/day.component';
+import { UsersComponent } from './users/users.component';
+import { MenuComponent } from './menu/menu.component';
+import { RoomsComponent } from './rooms/rooms.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DaysComponent,
-    DayComponent
+    DayComponent,
+    UsersComponent,
+    MenuComponent,
+    RoomsComponent
   ],
   imports: [
     BrowserModule,
