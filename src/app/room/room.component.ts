@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RoomService } from '../room.service';
 
@@ -10,7 +10,7 @@ import { RoomService } from '../room.service';
 })
 export class RoomComponent implements OnInit {
 
-  constructor(private roomService: RoomService, private route: ActivatedRoute, private fb: FormBuilder) { }
+  constructor(private roomService: RoomService, private route: ActivatedRoute,private router:Router, private fb: FormBuilder) { }
 
   newroom = false;
   roomform: FormGroup;
@@ -45,13 +45,13 @@ export class RoomComponent implements OnInit {
       room.id=this.roomid;
     }
     this.roomService.save(room).subscribe(
-      data => location.replace('rooms')
+      data => this.router.navigate(['rooms'])
     );
   }
 
   delete() {
     this.roomService.delete(this.roomform.value).subscribe(
-      () => location.replace('rooms')
+      () => this.router.navigate(['rooms'])
     );
   }
 

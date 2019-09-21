@@ -1,5 +1,5 @@
 <nav>
-    <a routerLink="/bookings">Bookings</a>
-    <a routerLink="/users">Users</a>
-    <a routerLink="/rooms">Rooms</a>
+    <a mat-fab color="primary" [class.selected]="selected === 'bookings'" routerLink="/bookings" (click)="select('bookings')">Bookings</a>
+    <a mat-fab color="primary" [class.selected]="selected === 'users'" routerLink="/users" (click)="select('users')">Users</a>
+    <a mat-fab color="primary" [class.selected]="selected === 'rooms'" routerLink="/rooms" (click)="select('rooms')">Rooms</a>
 </nav>

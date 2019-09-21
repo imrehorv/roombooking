@@ -1,3 +1,8 @@
-
-<p><i class="material-icons" (click)="back()">reply</i>{{selecteddate | date:'yyyy-MM-dd' }}<i class="material-icons" (click)="forward()">forward</i></p>
+<i class="material-icons" (click)="back()">reply</i>
+<mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date" [formControl]="date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+<i class="material-icons" (click)="forward()">forward</i>
 <rb-day [selecteddate]="selecteddate"></rb-day>

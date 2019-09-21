@@ -12,7 +12,11 @@ export class MenuComponent implements OnInit {
   selected: string;
 
   ngOnInit() {
-    this.selected= 'bookings';
+    this.selected = 'bookings';
+  }
+
+  select(selected: string) {
+    this.selected = selected;
   }
 
 }

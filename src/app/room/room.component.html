@@ -1,14 +1,16 @@
 <form [formGroup]="roomform">
-    <label>
-        Roomid:
-        <input type="text" formControlName="id" >
-    </label>
-    <label>
-        Name:
-        <input type="text" formControlName="name">
-    </label>
+    <div class="mdc-text-field ">
+        <input type="text" class="mdc-text-field__input" id="roomid-input" name="roomid" formControlName="id">
+        <label class="mdc-floating-label" for="roomid-input">Roomid</label>
+        <div class="mdc-line-ripple"></div>
+    </div>
+    <div class="mdc-text-field ">
+        <input type="text" class="mdc-text-field__input" id="roomname-input" name="roomname" formControlName="name">
+        <label class="mdc-floating-label" for="roomname-input">Name</label>
+        <div class="mdc-line-ripple"></div>
+    </div>
     <p>
-        <button (click)="save()">Save</button>
-        <button *ngIf="!newroom" (click)="delete()">Delete</button>
+        <button mat-stroked-button (click)="save()">Save</button>
+        <button mat-stroked-button *ngIf="!newroom" (click)="delete()">Delete</button>
     </p>
 </form>

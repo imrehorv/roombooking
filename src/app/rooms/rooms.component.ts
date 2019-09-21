@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RoomService } from '../room.service';
 import { Room } from '../iroom';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'rb-rooms',
@@ -9,9 +10,9 @@ import { Room } from '../iroom';
 })
 export class RoomsComponent implements OnInit {
 
-  constructor(private roomService : RoomService) { }
+  constructor(private roomService: RoomService, private router: Router) { }
 
-  rooms:Room[];
+  rooms: Room[];
 
   ngOnInit() {
     this.roomService.list().subscribe(
@@ -20,7 +21,7 @@ export class RoomsComponent implements OnInit {
   }
 
   new() {
-    location.replace('roomdetail')
+    this.router.navigate(['roomdetail']);
   }
 
 }
