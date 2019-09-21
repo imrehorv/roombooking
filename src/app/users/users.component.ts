@@ -19,4 +19,8 @@ export class UsersComponent implements OnInit {
     );
   }
 
+  new() {
+    location.replace('userdetail')
+  }
+
 }

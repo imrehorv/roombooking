@@ -4,18 +4,22 @@ import { DaysComponent } from './days/days.component';
 import { UsersComponent } from './users/users.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { UserComponent } from './user/user.component';
+import { RoomComponent } from './room/room.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/bookings', pathMatch: 'full' },
   { path: 'bookings', component: DaysComponent },
   { path: 'users', component: UsersComponent },
   { path: 'userdetail/:id', component: UserComponent },
-  { path: 'rooms', component: RoomsComponent }  
+  { path: 'userdetail', component: UserComponent },
+  { path: 'rooms', component: RoomsComponent },
+  { path: 'roomdetail/:id', component: RoomComponent },
+  { path: 'roomdetail', component: RoomComponent },
 ];
 
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

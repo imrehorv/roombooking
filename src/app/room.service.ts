@@ -26,7 +26,21 @@ export class RoomService {
     else
     {
       console.log('call http');
-      return this.http.get<Room[]>(`${environment.baseUrl}/api/rooms`);
+      return this.http.get<Room[]>(`${environment.baseUrl}/api/room`);
     }
   }
+
+
+  loadRoom(id:string): Observable<Room> {
+    return this.http.get<Room>(`${environment.baseUrl}/api/room/${id}`);
+  }
+
+  save(room:Room): Observable<Room>  {
+    return this.http.post<Room>(`${environment.baseUrl}/api/room/`,room);
+  }
+
+  delete(room:Room): Observable<void>  {
+    return this.http.delete<void>(`${environment.baseUrl}/api/room/${room.id}`);
+  }
+
 }

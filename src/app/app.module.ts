@@ -12,6 +12,7 @@ import { UsersComponent } from './users/users.component';
 import { MenuComponent } from './menu/menu.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { UserComponent } from './user/user.component';
+import { RoomComponent } from './room/room.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { UserComponent } from './user/user.component';
     UsersComponent,
     MenuComponent,
     RoomsComponent,
-    UserComponent
+    UserComponent,
+    RoomComponent
   ],
   imports: [
     BrowserModule,

@@ -1,18 +1,14 @@
-<form [formGroup]="userform">
+<form [formGroup]="roomform">
     <label>
-        Userid:
+        Roomid:
         <input type="text" formControlName="id" >
     </label>
     <label>
         Name:
         <input type="text" formControlName="name">
     </label>
-    <label>
-        Email:
-        <input type="text" formControlName="email">
-    </label>
     <p>
         <button (click)="save()">Save</button>
-        <button *ngIf="!newuser" (click)="delete()">Delete</button>
+        <button *ngIf="!newroom" (click)="delete()">Delete</button>
     </p>
 </form>

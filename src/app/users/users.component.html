@@ -1,8 +1,15 @@
 <table border="1">
     <tr>
-        <th>Userid</th><th>Name</th><th>Email</th>
+        <th>Userid</th>
+        <th>Name</th>
+        <th>Email</th>
     </tr>
     <tr *ngFor="let user of users">
-        <td><a routerLink="/userdetail/{{user.id}}">{{user.id}}</a></td><td>{{user.name}}</td><td>{{user.email}}</td>
+        <td><a routerLink="/userdetail/{{user.id}}">{{user.id}}</a></td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
     </tr>
-</table>    
+</table>
+<p>
+    <button (click)="new()">New User</button>
+</p>
