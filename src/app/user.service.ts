@@ -3,6 +3,7 @@ import { User } from './iuser';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
+import { UserExt } from './iuserext';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,9 @@ export class UserService {
 
   delete(user:User): Observable<void>  {
     return this.http.delete<void>(`${environment.baseUrl}/api/user/${user.id}`);
+  }
+
+  register(user:UserExt): Observable<User> {
+    return this.http.post<User>(`${environment.baseUrl}/api/user/register`,user);
   }
 }

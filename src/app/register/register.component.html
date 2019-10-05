@@ -1,0 +1,19 @@
+<form [formGroup]="registerform" class="register-form">
+    <mat-form-field class="register-full-width" >
+        <input matInput formControlName="id" placeholder="Userid">
+    </mat-form-field>
+    <mat-form-field class="register-full-width" >
+        <input matInput formControlName="name" placeholder="Name">
+    </mat-form-field>
+    <mat-form-field class="register-full-width" >
+        <input matInput formControlName="email" placeholder="Email">
+     </mat-form-field>      
+     <mat-form-field class="register-full-width" >
+        <input matInput formControlName="password1" placeholder="Password">
+     </mat-form-field>      
+     <mat-form-field class="register-full-width" >
+        <input matInput formControlName="password2" placeholder="Repeat Password">
+     </mat-form-field>
+     <mat-error *ngIf="!passwordsmatch()">Passwords do not match</mat-error>
+     <button mat-stroked-button (click)="register()">Register</button>     
+ </form>

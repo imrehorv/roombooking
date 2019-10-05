@@ -5,6 +5,7 @@ import { UsersComponent } from './users/users.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { UserComponent } from './user/user.component';
 import { RoomComponent } from './room/room.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/bookings', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'rooms', component: RoomsComponent },
   { path: 'roomdetail/:id', component: RoomComponent },
   { path: 'roomdetail', component: RoomComponent },
+  { path: 'register', component: RegisterComponent },
 ];
 
 

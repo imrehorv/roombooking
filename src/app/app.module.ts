@@ -18,6 +18,7 @@ import { UserComponent } from './user/user.component';
 import { RoomComponent } from './room/room.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MatInputModule } from '@angular/material';
     MenuComponent,
     RoomsComponent,
     UserComponent,
-    RoomComponent
+    RoomComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
